@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/features/user/data/user_service.dart';
+import 'package:flutter_application/features/user/logic/user_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Failure extends StatelessWidget {
   final String message; // 👈 mensaje dinámico para mostrar el error
@@ -25,8 +28,7 @@ class Failure extends StatelessWidget {
           const SizedBox(height: 8),
           ElevatedButton(
             onPressed: () {
-              // 👈 Aquí puedes volver a intentar la acción que falló
-              Navigator.of(context).pop();
+              context.read<UserCubit>().getUser();
             },
             child: const Text("Reintentar"),
           ),

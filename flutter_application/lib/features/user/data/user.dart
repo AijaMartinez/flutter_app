@@ -1,7 +1,7 @@
 class User {
   String email;
   String nombre;
-  String saldo;
+  int saldo;
 
   User({required this.email, required this.nombre, required this.saldo});
 
