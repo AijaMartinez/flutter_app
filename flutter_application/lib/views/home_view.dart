@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/views/failure.dart';
+import 'package:flutter_application/views/loading.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../features/user/logic/user_cubit.dart';
 
 void main() => runApp(const HomeView());
 
@@ -12,19 +16,63 @@ class HomeView extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text('Inicio')),
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: 600,
+              width: 800,
               height: 200,
               margin: const EdgeInsets.all(8),
               color: Colors.amber,
               alignment: Alignment.center,
-              child: const Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  BlocBuilder<UserCubit, UserState>(
+                    builder: (context, state) {
+                      if (state is UserInitial) {
+                        return const Text(
+                          "Esperando datos...",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        );
+                      } else if (state is UserLoading) {
+                        return const Center(child: Loading());
+                      } else if (state is UserLoaded) {
+                        final user = state.user;
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Hola, ${user.nombre}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              "Contacto: , ${user.email}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              "Saldo: , ${user.saldo}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        );
+                      } else if (state is UserError) {
+                        return const Center(child: Failure());
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+
+                  /*                  Text(
                     "Hola, Carlos",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
@@ -35,7 +83,7 @@ class HomeView extends StatelessWidget {
                   Text(
                     "Saldo: 12000",
                     style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
+                  ), */
                 ],
               ),
             ),
@@ -61,21 +109,6 @@ class HomeView extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20),
                     child: Text(
                       "Ir al Ara",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                  const Divider(color: Colors.white, thickness: 15, height: 20),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Text(
-                      "Transito",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Text(
-                      "Tramite",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),
