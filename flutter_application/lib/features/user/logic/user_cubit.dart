@@ -13,6 +13,12 @@ class UserCubit extends Cubit<UserState> {
     try {
       emit(UserLoading());
       final user = await service.fetchUser();
+      await Future.delayed(const Duration(seconds: 1));
+
+      emit(UserSuccess());
+
+      await Future.delayed(const Duration(seconds: 2));
+
       emit(UserLoaded(user));
     } catch (e) {
       emit(UserError("Error: ${e.toString()}"));
