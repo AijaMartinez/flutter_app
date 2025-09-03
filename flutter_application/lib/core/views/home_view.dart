@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/features/tareas/logic/tarea_cubit.dart';
-import 'package:flutter_application/views/failure.dart';
-import 'package:flutter_application/views/loading.dart';
-import 'package:flutter_application/views/success.dart';
+import 'package:flutter_application/core/views/failure.dart';
+import 'package:flutter_application/core/views/loading.dart';
+import 'package:flutter_application/core/views/success.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../features/user/logic/user_cubit.dart';
+import '../../features/user/logic/user_cubit.dart';
 
 void main() => runApp(const HomeView());
 

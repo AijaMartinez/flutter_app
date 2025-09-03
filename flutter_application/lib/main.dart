@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/views/home_view.dart';
+import 'package:flutter_application/core/views/home_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './features/user/data/user_service.dart';
 import './features/user/logic/user_cubit.dart';
