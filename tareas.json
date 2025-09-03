@@ -1,0 +1,16 @@
+{
+    "tareas": [
+        {
+            "titulo": "Comprar",
+            "descripcion": "ir al ara"
+        },
+        {
+            "titulo": "Transito",
+            "descripcion": "Tramite"
+        },
+        {
+            "titulo": "Viajar",
+            "descripcion": "ir a inglaterra" 
+        }
+    ]
+}
