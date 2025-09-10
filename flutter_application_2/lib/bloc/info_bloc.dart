@@ -1,15 +1,15 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_application_2/data/car.dart';
+import 'package:flutter_application_2/data/car_service.dart';
 import 'package:meta/meta.dart';
 
 part 'info_event.dart';
 part 'info_state.dart';
 
 class InfoBloc extends Bloc<InfoEvent, InfoState> {
-  InfoBloc() : super(InfoInitial()) {
-    on<GoToInfoCar>((event, emit) {
-      emit(NavigateToInfoCar());
-    });
+  final CarService carService;
 
+  InfoBloc(this.carService) : super(InfoInitial()) {
     on<FetchCarInfo>(_onFetchCarInfo);
   }
 
@@ -18,15 +18,12 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
     Emitter<InfoState> emit,
   ) async {
     emit(InfoLoading());
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    final success = DateTime.now().second % 2 == 0;
-
-    if (success) {
-      emit(InfoLoaded(""));
-    } else {
-      emit(InfoFailure("No se pudo cargar la información"));
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+      final car = await carService.fetchCar();
+      emit(InfoSuccess(car));
+    } catch (e) {
+      emit(InfoFailure("Error: ${e.toString()}"));
     }
   }
 }

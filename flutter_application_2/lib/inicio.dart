@@ -28,7 +28,7 @@ class Inicio extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 155, 162, 168),
+                    color: const Color.fromARGB(255, 175, 176, 176),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
@@ -36,11 +36,16 @@ class Inicio extends StatelessWidget {
                       const Text("Nombre"),
                       const TextField(),
                       const Padding(padding: EdgeInsets.all(20)),
-                      const Text("Contraseña"),
+                      const Text("Cedula"),
                       const TextField(),
+                      const Padding(padding: EdgeInsets.all(20)),
                       ElevatedButton(
                         onPressed: () {
-                          context.read<InfoBloc>().add(GoToInfoCar());
+                          context.read<InfoBloc>().add(FetchCarInfo());
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const InfoCar()),
+                          );
                         },
                         child: const Text("Ir"),
                       ),

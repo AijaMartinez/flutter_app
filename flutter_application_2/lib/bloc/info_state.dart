@@ -7,12 +7,12 @@ class InfoInitial extends InfoState {}
 
 class NavigateToInfoCar extends InfoState {}
 
-class InfoLoading extends InfoState {}
-
-class InfoLoaded extends InfoState {
-  final String data;
-  InfoLoaded(this.data);
+class InfoSuccess extends InfoState {
+  final Car car;
+  InfoSuccess(this.car);
 }
+
+class InfoLoading extends InfoState {}
 
 class InfoFailure extends InfoState {
   final String error;
