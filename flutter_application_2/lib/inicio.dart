@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_2/bloc/info_bloc.dart';
 import 'package:flutter_application_2/infocar.dart';
+import 'package:flutter/services.dart';
 
 class Inicio extends StatefulWidget {
   const Inicio({super.key});
@@ -13,11 +14,13 @@ class Inicio extends StatefulWidget {
 class _InicioState extends State<Inicio> {
   final _formKey = GlobalKey<FormState>();
   final _nombreController = TextEditingController();
+  final _apellidoController = TextEditingController();
   final _cedulaController = TextEditingController();
 
   @override
   void dispose() {
     _nombreController.dispose();
+    _apellidoController.dispose();
     _cedulaController.dispose();
     super.dispose();
   }
@@ -35,10 +38,11 @@ class _InicioState extends State<Inicio> {
       },
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: const Color.fromARGB(255, 146, 149, 151),
           appBar: AppBar(
             title: const Text("Inicio"),
             centerTitle: true,
-            backgroundColor: Colors.grey[800],
+            backgroundColor: const Color.fromARGB(255, 54, 58, 58),
             foregroundColor: Colors.white,
           ),
           body: Center(
@@ -52,7 +56,10 @@ class _InicioState extends State<Inicio> {
                   children: [
                     const Text(
                       "Nombre",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     TextFormField(
@@ -61,7 +68,7 @@ class _InicioState extends State<Inicio> {
                         hintText: "Escribe tu nombre",
                         border: OutlineInputBorder(),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Color.fromARGB(255, 197, 199, 199),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -72,25 +79,58 @@ class _InicioState extends State<Inicio> {
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      "Cédula",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      "Apellido",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextFormField(
+                      controller: _apellidoController,
+                      decoration: const InputDecoration(
+                        hintText: "Escribe tu apellido",
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Color.fromARGB(255, 197, 199, 199),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Ingrese su apellido";
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      "Cedula",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: _cedulaController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       decoration: const InputDecoration(
                         hintText: "Escribe tu cédula",
                         border: OutlineInputBorder(),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Color.fromARGB(255, 197, 199, 199),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Ingrese tu cédula";
                         }
+                        if (value.length != 10 && value.length != 8) {
+                          return "Digite una cedula valida";
+                        }
                         return null;
                       },
                     ),
+
                     const SizedBox(height: 32),
                     SizedBox(
                       height: 48,
@@ -100,14 +140,26 @@ class _InicioState extends State<Inicio> {
                             context.read<InfoBloc>().add(FetchCarInfo());
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (_) => const InfoCar()),
+                              MaterialPageRoute(
+                                builder: (_) => const InfoCar(),
+                              ),
                             );
                           }
                         },
                         label: const Text("Ir"),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black87,
-                          foregroundColor: Colors.white,
+                          backgroundColor: const Color.fromARGB(
+                            221,
+                            27,
+                            27,
+                            27,
+                          ),
+                          foregroundColor: const Color.fromARGB(
+                            255,
+                            207,
+                            207,
+                            207,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),

@@ -10,7 +10,11 @@ class InfoCar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Car")),
+      backgroundColor: const Color.fromARGB(255, 107, 120, 122),
+      appBar: AppBar(
+        title: Text("Tu carro"),
+        backgroundColor: const Color.fromARGB(255, 170, 172, 173),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -19,11 +23,11 @@ class InfoCar extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(30),
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 155, 162, 168),
-                borderRadius: BorderRadius.circular(12),
+                color: const Color.fromARGB(149, 70, 75, 86),
+                borderRadius: BorderRadius.circular(60),
               ),
               child: Column(
                 children: [
@@ -40,21 +44,73 @@ class InfoCar extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "Modelo: ${car.modelo}",
-                                style: const TextStyle(fontSize: 18),
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    const TextSpan(
+                                      text: "Modelo: ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(text: car.modelo),
+                                  ],
+                                ),
                               ),
-                              Text(
-                                "Marca: ${car.marca}",
-                                style: const TextStyle(fontSize: 18),
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    const TextSpan(
+                                      text: "Marca: ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(text: car.marca),
+                                  ],
+                                ),
                               ),
-                              Text(
-                                "Color: ${car.color}",
-                                style: const TextStyle(fontSize: 18),
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    const TextSpan(
+                                      text: "Color: ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(text: car.color),
+                                  ],
+                                ),
                               ),
-                              Text(
-                                "Descripción: ${car.descripcion}",
-                                style: const TextStyle(fontSize: 18),
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    const TextSpan(
+                                      text: "Descripción: ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(text: car.descripcion),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

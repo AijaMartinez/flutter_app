@@ -19,7 +19,7 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
   ) async {
     emit(InfoLoading());
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 4));
       final car = await carService.fetchCar();
       emit(InfoSuccess(car));
     } catch (e) {
