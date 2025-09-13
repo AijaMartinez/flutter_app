@@ -5,8 +5,8 @@ import 'package:flutter_application_2/core/loading.dart';
 import 'package:flutter_application_2/data/service/car_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class InfoCar extends StatelessWidget {
-  const InfoCar({super.key});
+class DescripcionCarro extends StatelessWidget {
+  const DescripcionCarro({super.key});
 
   @override
   Widget build(BuildContext context) {

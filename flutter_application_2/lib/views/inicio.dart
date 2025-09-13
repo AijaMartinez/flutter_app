@@ -3,7 +3,7 @@ import 'package:flutter_application_2/blocs/inicio_bloc/ini_form_bloc.dart';
 import 'package:flutter_application_2/core/failure.dart';
 import 'package:flutter_application_2/core/loading.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_application_2/views/infocar.dart';
+import 'package:flutter_application_2/views/carro_desc.dart';
 import 'package:flutter/services.dart';
 
 class Inicio extends StatefulWidget {
@@ -36,7 +36,7 @@ class _InicioState extends State<Inicio> {
           if (state is IniFormSuccess) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const InfoCar()),
+              MaterialPageRoute(builder: (_) => const DescripcionCarro()),
             );
           }
         },
@@ -50,7 +50,7 @@ class _InicioState extends State<Inicio> {
           return Scaffold(
             backgroundColor: const Color.fromARGB(255, 146, 149, 151),
             appBar: AppBar(
-              title: const Text("Iniciar Sesión"),
+              title: const Text("Inicio de Sesión"),
               centerTitle: true,
               backgroundColor: const Color.fromARGB(255, 54, 58, 58),
               foregroundColor: Colors.white,
@@ -152,7 +152,7 @@ class _InicioState extends State<Inicio> {
                               context.read<IniFormBloc>().add(SendData());
                             }
                           },
-                          label: const Text("Ir"),
+                          label: const Text("Inicar Sesión"),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color.fromARGB(
                               221,
