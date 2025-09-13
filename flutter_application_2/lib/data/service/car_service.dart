@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'car.dart';
+import '../model/car.dart';
 
 class CarService {
   final String baseUrl =

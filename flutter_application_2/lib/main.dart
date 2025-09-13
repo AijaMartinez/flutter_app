@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/data/car_service.dart';
-import 'package:flutter_application_2/inicio.dart';
-import 'package:flutter_application_2/bloc/info_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_application_2/views/inicio.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,16 +10,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => InfoBloc(CarService()),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        ),
-        home: const Inicio(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Inicio',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+      home: const Inicio(),
     );
   }
 }

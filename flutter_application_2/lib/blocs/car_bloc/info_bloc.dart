@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_application_2/data/car.dart';
-import 'package:flutter_application_2/data/car_service.dart';
+import 'package:flutter_application_2/data/model/car.dart';
+import 'package:flutter_application_2/data/service/car_service.dart';
 import 'package:meta/meta.dart';
 
 part 'info_event.dart';
