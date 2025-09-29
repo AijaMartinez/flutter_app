@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/blocs/inicio_bloc/ini_form_bloc.dart';
+import 'package:flutter_application_2/blocs/inicio_bloc/ini_form_cubit.dart';
 import 'package:flutter_application_2/core/failure.dart';
 import 'package:flutter_application_2/core/loading.dart';
+import 'package:flutter_application_2/data/service/user_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_2/views/carro_desc.dart';
 import 'package:flutter/services.dart';
@@ -30,8 +31,8 @@ class _InicioState extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => IniFormBloc(),
-      child: BlocConsumer<IniFormBloc, IniFormState>(
+      create: (context) => IniFormCubit(userService: UserService()),
+      child: BlocConsumer<IniFormCubit, IniFormState>(
         listener: (context, state) {
           if (state is IniFormSuccess) {
             Navigator.push(
@@ -149,7 +150,12 @@ class _InicioState extends State<Inicio> {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              context.read<IniFormBloc>().add(SendData());
+                              final cubit = context.read<IniFormCubit>();
+                              cubit.sendData(
+                                nombre: _nombreController.text.trim(),
+                                apellido: _apellidoController.text.trim(),
+                                cedula: _cedulaController.text.trim(),
+                              );
                             }
                           },
                           label: const Text("Inicar Sesión"),
