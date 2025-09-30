@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class UserService {
   final String baseUrl =
-      "https://raw.githubusercontent.com/AijaMartinez/flutter_app/refs/heads/main/infoUser.json";
+      "https://raw.githubusercontent.com/AijaMartinez/flutter_app/refs/heads/main/user.json";
 
   Future<User> fetchUser() async {
     final response = await http.get(Uri.parse(baseUrl));

@@ -33,11 +33,13 @@ class _InicioState extends State<Inicio> {
     return BlocProvider(
       create: (context) => IniFormCubit(userService: UserService()),
       child: BlocConsumer<IniFormCubit, IniFormState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is IniFormSuccess) {
+            final user = await UserService().fetchUser();
+            if (!context.mounted) return;
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const DescripcionCarro()),
+              MaterialPageRoute(builder: (_) => DescripcionCarro(user: user)),
             );
           }
         },

@@ -9,7 +9,7 @@ class User {
     return User(
       nombre: json['nombre'],
       apellido: json['apellido'],
-      cedula: json['cedula'],
+      cedula: json['cedula'].toString(),
     );
   }
 }
