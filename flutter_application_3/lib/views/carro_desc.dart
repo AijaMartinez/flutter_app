@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/blocs/car_bloc/info_bloc.dart';
+import 'package:flutter_application_2/blocs/inicio_cubit/ini_form_cubit.dart';
 import 'package:flutter_application_2/core/failure.dart';
 import 'package:flutter_application_2/core/loading.dart';
 import 'package:flutter_application_2/data/service/car_service.dart';
 import 'package:flutter_application_2/data/model/user.dart'; // Import User model
+import 'package:flutter_application_2/data/service/user_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DescripcionCarro extends StatelessWidget {
-  final User user; // Add user parameter
+  final User user;
 
   const DescripcionCarro({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => InfoBloc(CarService())..add(FetchCarInfo()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              IniFormCubit(userService: UserService())..sendData(
+                nombre: user.nombre,
+                apellido: user.apellido,
+                cedula: user.cedula.toString(),
+              ),
+        ),
+        BlocProvider(
+          create: (context) => InfoBloc(CarService())..add(FetchCarInfo()),
+        ),
+      ],
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 107, 120, 122),
         appBar: AppBar(
@@ -24,70 +38,112 @@ class DescripcionCarro extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              // User info container above car info
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(30),
-                margin: const EdgeInsets.only(bottom: 16, top: 16),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(149, 70, 75, 86),
-                  borderRadius: BorderRadius.circular(60),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.person, size: 60, color: Colors.black54),
-                    const SizedBox(height: 16),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
+              BlocBuilder<IniFormCubit, IniFormState>(
+                builder: (context, state) {
+                  if (state is IniFormLoading) {
+                    return Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(30),
+                      margin: const EdgeInsets.only(bottom: 16, top: 16),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(149, 70, 75, 86),
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                      child: Loading(),
+                    );
+                  } else if (state is IniFormSuccess) {
+                    final user = state.user;
+                    return Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(30),
+                      margin: const EdgeInsets.only(bottom: 16, top: 16),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(149, 70, 75, 86),
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const TextSpan(
-                            text: "Nombre: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          const Icon(
+                            Icons.person,
+                            size: 60,
+                            color: Colors.black54,
                           ),
-                          TextSpan(text: user.nombre),
+                          const SizedBox(height: 16),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                              children: [
+                                const TextSpan(
+                                  text: "Nombre: ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(text: user.nombre),
+                              ],
+                            ),
+                          ),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                              children: [
+                                const TextSpan(
+                                  text: "Apellido: ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(text: user.apellido),
+                              ],
+                            ),
+                          ),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                              children: [
+                                const TextSpan(
+                                  text: "Cédula: ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(text: user.cedula.toString()),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
-                        children: [
-                          const TextSpan(
-                            text: "Apellido: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(text: user.apellido),
-                        ],
+                    );
+                  } else if (state is IniFormFailure) {
+                    return Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(30),
+                      margin: const EdgeInsets.only(bottom: 16, top: 16),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(149, 70, 75, 86),
+                        borderRadius: BorderRadius.circular(60),
                       ),
+                      child: Center(child: Text('Error al cargar usuario')),
+                    );
+                  }
+                  return Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(30),
+                    margin: const EdgeInsets.only(bottom: 16, top: 16),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(149, 70, 75, 86),
+                      borderRadius: BorderRadius.circular(60),
                     ),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
-                        children: [
-                          const TextSpan(
-                            text: "Cédula: ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          TextSpan(text: user.cedula.toString()),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                    child: Center(child: Text('Sin datos de usuario')),
+                  );
+                },
               ),
               Image.network(
                 "https://www.webmotors.com.br/imagens/prod/379556/FERRARI_PUROSANGUE_6.5_V12_GASOLINA_F1DCT_37955609024335538.webp",

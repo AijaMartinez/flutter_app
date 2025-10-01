@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_application_2/data/model/user.dart';
 import 'package:flutter_application_2/data/service/user_service.dart';
 import 'package:meta/meta.dart';
 part 'ini_form_state.dart';
@@ -16,7 +17,7 @@ class IniFormCubit extends Cubit<IniFormState> {
 
     try {
       final fetchedUser = await userService.fetchUser();
-      await Future.delayed(const Duration(seconds: 4));
+      await Future.delayed(const Duration(seconds: 3));
       final isValid =
           fetchedUser.nombre.trim().toLowerCase() ==
               nombre.trim().toLowerCase() &&
@@ -25,7 +26,7 @@ class IniFormCubit extends Cubit<IniFormState> {
           fetchedUser.cedula.toString() == cedula.trim();
 
       if (isValid) {
-        emit(IniFormSuccess());
+        emit(IniFormSuccess(fetchedUser));
       } else {
         emit(IniFormFailure());
       }

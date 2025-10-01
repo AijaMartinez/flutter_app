@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/blocs/inicio_bloc/ini_form_cubit.dart';
+import 'package:flutter_application_2/blocs/inicio_cubit/ini_form_cubit.dart';
 import 'package:flutter_application_2/core/failure.dart';
 import 'package:flutter_application_2/core/loading.dart';
 import 'package:flutter_application_2/data/service/user_service.dart';
